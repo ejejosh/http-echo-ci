@@ -104,4 +104,27 @@ Example summary (from `metrics_summary.json`):
 }
 ```
 
+You should see the below in the artifact under metrics directory.
 
+### CPU foo
+![CPU foo](./example_metrics_outputs/cpu_foo.png)
+
+---
+
+### CPU foo
+![CPU bar](./example_metrics_outputs/cpu_bar.png)
+
+---
+
+### Memory foo
+![Mem foo](./example_metrics_outputs/mem_foo.png)
+
+---
+
+### Memory bar
+![Mem bar](./example_metrics_outputs/mem_bar.png)
+
+---
+
+### Memory Node
+![Mem Node](./example_metrics_outputs/mem_node.png)
