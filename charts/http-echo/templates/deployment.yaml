@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "http-echo.fullname" . }}-{{ .Values.app | default .Release.Name }}
+  labels:
+    app: {{ include "http-echo.fullname" . }}-{{ .Values.app | default .Release.Name }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "http-echo.fullname" . }}-{{ .Values.app | default .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "http-echo.fullname" . }}-{{ .Values.app | default .Release.Name }}
+    spec:
+      containers:
+        - name: http-echo
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          args:
+            - "-text={{ .Values.app | default .Release.Name }}"
+            - "-listen=:8080"
+          ports:
+            - containerPort: 8080

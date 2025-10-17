@@ -1,0 +1,43 @@
+name: PR CI - KinD + Helm + Prometheus + Python Loadtest + Charts
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  e2e-kind:
+    name: E2E KinD + Helm + Prometheus
+    runs-on: ubuntu-latest
+    env:
+      KUBECONFIG: ${{ github.workspace }}/kubeconfig
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install prerequisites (docker, kind, kubectl, helm, python)
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y python3 python3-pip jq curl
+          curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-linux-amd64
+          chmod +x ./kind && sudo mv ./kind /usr/local/bin/
+          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+          chmod +x kubectl && sudo mv kubectl /usr/local/bin/
+          curl -fsSL https://get.helm.sh/helm-v3.12.0-linux-amd64.tar.gz -o /tmp/helm.tar.gz
+          tar -zxvf /tmp/helm.tar.gz -C /tmp
+          sudo mv /tmp/linux-amd64/helm /usr/local/bin/helm
+          python3 -m pip install --upgrade pip
+          python3 -m pip install aiohttp requests pandas matplotlib
+
+      - name: Start KinD cluster + deploy + loadtest + charts
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          chmod +x ./scripts/run_all.sh
+          ./scripts/run_all.sh

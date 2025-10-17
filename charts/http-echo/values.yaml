@@ -1,0 +1,21 @@
+replicaCount: 2
+
+image:
+  repository: hashicorp/http-echo
+  tag: "0.2.3"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  hosts:
+    - host: foo.localhost
+      paths:
+        - path: /
+    - host: bar.localhost
+      paths:
+        - path: /
+resources: {}
