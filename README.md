@@ -97,10 +97,14 @@ Example summary (from `metrics_summary.json`):
 
 ```json
 {
-  "cpu_foo": { "avg": 0.000111, "p90": 0.000000, "p95": 0.000000 },
-  "cpu_bar": { "avg": 0.000244, "p90": 0.000143, "p95": 0.000143 },
-  "mem_foo": { "avg": 2162688.0, "p90": 1015808.0, "p95": 1015808.0 },
-  "mem_bar": { "avg": 2271914.66, "p90": 1019904.0, "p95": 1019904.0 }
+   "summary": 
+      [
+         {"metric": "cpu_foo", "avg": 0.00013752621477202767, "p90": 0.0, "p95": 0.0}, 
+         {"metric": "cpu_bar", "avg": 0.0001429976914409751, "p90": 0.00020460788598805475, "p95": 0.00020460788598805475}, 
+         {"metric": "mem_foo", "avg": 2427107.5555555555, "p90": 1018538.6666666666, "p95": 1018538.6666666666}, 
+         {"metric": "mem_bar", "avg": 2461696.0, "p90": 1040384.0, "p95": 1040384.0}, 
+         {"metric": "mem_node", "avg": 7805156010.666667, "p90": 10068443136.0, "p95": 10068443136.0}
+      ]
 }
 ```
 
@@ -111,7 +115,7 @@ You should see the below in the artifact under metrics directory.
 
 ---
 
-### CPU foo
+### CPU bar
 ![CPU bar](./example_metrics_outputs/cpu_bar.png)
 
 ---
