@@ -1,9 +1,6 @@
 name: PR CI - http-echo app
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
     types: [opened, reopened, synchronize]
 
@@ -44,3 +41,13 @@ jobs:
         run: |
           chmod +x ./scripts/run_all.sh
           ./scripts/run_all.sh
+
+      # Upload metrics and charts for visibility
+      - name: Upload metrics artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: metrics
+          path: |
+            ./metrics_summary.json
+            ./*.png
