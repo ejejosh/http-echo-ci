@@ -1,4 +1,4 @@
-name: PR CI - KinD + Helm + Prometheus + Python Loadtest + Charts
+name: PR CI - http-echo app
 
 on:
   push:
